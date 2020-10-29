@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
+import { calculateNewBoard } from '../helpers/calculateNewBoard';
 
 export default {
   name: 'Board',
@@ -26,7 +27,7 @@ export default {
     },
     fps: {
       type: Number,
-      default: 30,
+      default: 3,
     },
   },
   setup(props) {
@@ -36,13 +37,8 @@ export default {
     const changeDirection = (d) => { direction.value = d };
 
     const updateBoard = () => {
-      let index = boardArray.value.findIndex((item) => item);
-      if (index < 0) index = 0;
-
-      const newArray = [...boardArray.value];
-      newArray[index] = false;
-      newArray[(index + 1) % (props.width * props.height)] = true;
-      boardArray.value = newArray;
+      const newBoard = calculateNewBoard(boardArray.value, direction.value, props.width, props.height);
+      boardArray.value = newBoard;
     };
 
     const handle = setInterval(updateBoard, 1000.0 / props.fps);
@@ -62,6 +58,6 @@ export default {
 .grid-container {
   display: grid;
   /* TODO: Use props.width instead of 10 */
-  grid-template-columns: repeat(10, 50px);
+  grid-template-columns: repeat(7, 50px);
 }
 </style>

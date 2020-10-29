@@ -1,6 +1,6 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <Board :height="8" />
+  <Board :height="3" :width="7"/>
 </template>
 
 <script>
