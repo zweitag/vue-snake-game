@@ -1,5 +1,4 @@
 <template>
-  <input @keyup="handleKeypress">dummy</input>
   <div class="grid-container">
     <div class="grid-item" v-for="item in boardArray">
       {{ item }}
@@ -47,6 +46,7 @@ export default {
     onBeforeUnmount(() => clearInterval(handle));
 
     const handleKeypress = ({ key }) => {
+      console.log(key);
       let mapping = {
         "ArrowUp": "UP",
         "ArrowDown": "DOWN",
@@ -55,6 +55,7 @@ export default {
       };
       changeDirection(mapping[key]);
     };
+    window.addEventListener("keydown", handleKeypress);
 
     return {
       boardArray,
