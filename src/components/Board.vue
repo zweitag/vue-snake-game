@@ -1,16 +1,13 @@
 <template>
   <div class="grid-container">
-    <template class="grid-item" v-for="row in boardArray">
-      <div v-for="column in row">
-        {{ column }}
-      </div>
-    </template>
+    <div class="grid-item" v-for="item in boardArray">
+      {{ item }}
+    </div>
   </div>
-  <button @click="onClick">Klick mich!</button>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import { onBeforeUnmount, ref } from 'vue';
 
 export default {
   name: 'Board',
@@ -23,17 +20,29 @@ export default {
       type: Number,
       default: 10,
     },
+    fps: {
+      type: Number,
+      default: 30,
+    },
   },
   setup(props) {
-    const boardArray = ref(new Array(props.width).fill(
-      new Array(props.height).fill(false)
-    ));
+    const boardArray = ref(new Array(props.width * props.height).fill(false));
 
-    const onClick = () => { boardArray.value = [true, ...boardArray.value] };
+    const updateBoard = () => {
+      let index = boardArray.value.findIndex((item) => item);
+      if (index < 0) index = 0;
+
+      const newArray = [...boardArray.value];
+      newArray[index] = false;
+      newArray[(index + 1) % (props.width * props.height)] = true;
+      boardArray.value = newArray;
+    };
+
+    const handle = setInterval(updateBoard, 1000.0 / props.fps);
+    onBeforeUnmount(() => clearInterval(handle));
 
     return {
       boardArray,
-      onClick,
     };
   },
 };
@@ -42,10 +51,7 @@ export default {
 <style scoped>
 .grid-container {
   display: grid;
+  /* TODO: Use props.width instead of 10 */
   grid-template-columns: repeat(10, 50px);
-}
-
-.grid-item {
-
 }
 </style>
