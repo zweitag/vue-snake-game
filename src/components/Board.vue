@@ -4,6 +4,10 @@
       {{ item }}
     </div>
   </div>
+  <button @click="changeDirection(d)" v-for="d in directions">
+    Move {{ d.toLowerCase() }}
+  </button>
+  <div>Movement direction: {{ direction }}</div>
 </template>
 
 <script lang="ts">
@@ -27,6 +31,9 @@ export default {
   },
   setup(props) {
     const boardArray = ref(new Array(props.width * props.height).fill(false));
+    const direction = ref("RIGHT");
+    const directions = ["RIGHT", "LEFT", "UP", "DOWN"];
+    const changeDirection = (d) => { direction.value = d };
 
     const updateBoard = () => {
       let index = boardArray.value.findIndex((item) => item);
@@ -43,6 +50,9 @@ export default {
 
     return {
       boardArray,
+      direction,
+      directions,
+      changeDirection,
     };
   },
 };
