@@ -31,7 +31,8 @@ export default {
     },
   },
   setup(props) {
-    const boardArray = ref(new Array(props.width * props.height).fill(false));
+    const snake = "🐍";
+    const boardArray = ref(new Array(props.width * props.height).fill(''));
     const direction = ref("RIGHT");
     const directions = ["RIGHT", "LEFT", "UP", "DOWN"];
     const changeDirection = (d) => { direction.value = d };
@@ -59,5 +60,10 @@ export default {
   display: grid;
   /* TODO: Use props.width instead of 10 */
   grid-template-columns: repeat(7, 50px);
+}
+
+.grid-item {
+  height: 50px;
+  background-color: lightgray;
 }
 </style>

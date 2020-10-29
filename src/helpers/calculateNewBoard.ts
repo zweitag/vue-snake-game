@@ -1,5 +1,5 @@
 export const calculateNewBoard = (oldBoard, direction, width, height) => {
-  let headPosition = oldBoard.findIndex((item) => item);
+  let headPosition = oldBoard.findIndex((item) => item === "🐍");
   if (headPosition < 0) headPosition = 0;
 
   const length = width * height;
@@ -24,8 +24,8 @@ export const calculateNewBoard = (oldBoard, direction, width, height) => {
   }
 
   const newArray = [...oldBoard];
-  newArray[headPosition] = false;
-  newArray[newHeadPosition] = true;
+  newArray[headPosition] = "";
+  newArray[newHeadPosition] = "🐍";
 
   return newArray;
 };
