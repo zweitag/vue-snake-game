@@ -13,6 +13,7 @@
 <script lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
 import { calculateNewBoard } from '../helpers/calculateNewBoard';
+import { useDirection } from '../composables/useDirection';
 
 export default {
   name: 'Board',
@@ -33,9 +34,7 @@ export default {
   setup(props) {
     const snake = "🐍";
     const boardArray = ref(new Array(props.width * props.height).fill(''));
-    const direction = ref("RIGHT");
-    const directions = ["RIGHT", "LEFT", "UP", "DOWN"];
-    const changeDirection = (d) => { direction.value = d };
+    const { direction, directions, changeDirection } = useDirection();
 
     const updateBoard = () => {
       const newBoard = calculateNewBoard(boardArray.value, direction.value, props.width, props.height);
@@ -46,7 +45,6 @@ export default {
     onBeforeUnmount(() => clearInterval(handle));
 
     const handleKeypress = ({ key }) => {
-      console.log(key);
       let mapping = {
         "ArrowUp": "UP",
         "ArrowDown": "DOWN",
