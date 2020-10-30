@@ -1,10 +1,10 @@
 <template>
   <div class="grid-container">
-    <div class="grid-item" v-for="item in boardArray">
-      {{ item }}
+    <div class="grid-item" v-for="(item, index) in boardArray" :key="index">
+      {{ item || "x" }}
     </div>
   </div>
-  <button @click="changeDirection(d)" v-for="d in directions">
+  <button @click="changeDirection(d)" v-for="d in directions" :key="d">
     Move {{ d.toLowerCase() }}
   </button>
   <div>Movement direction: {{ direction }}</div>
