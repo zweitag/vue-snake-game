@@ -68,14 +68,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped vars="{ width }">
 .grid-container {
   display: grid;
-  /* TODO: Use props.width instead of 10 */
-  grid-template-columns: repeat(7, 50px);
+  grid-template-columns: repeat(var(--width), 50px);
 }
 
 .grid-item {
+  width: 50px;
   height: 50px;
   background-color: lightgray;
 }
