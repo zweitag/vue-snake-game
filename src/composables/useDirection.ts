@@ -1,4 +1,5 @@
 import { readonly, ref } from 'vue';
+import { Direction } from '../helpers/calculateNewBoard';
 
 const allowedNewDirectionsByOldDirection = {
   "LEFT": ["UP", "DOWN"],
@@ -7,9 +8,9 @@ const allowedNewDirectionsByOldDirection = {
   "DOWN": ["LEFT", "RIGHT"],
 }
 
-export const useDirection = (startDirection = "RIGHT") => {
+export const useDirection = (startDirection = Direction.RIGHT) => {
   const direction = ref(startDirection);
-  const directions = ["RIGHT", "LEFT", "UP", "DOWN"];
+  const directions = [Direction.RIGHT, Direction.LEFT, Direction.UP, Direction.DOWN];
   const changeDirection = (newDirection) => {
     const allowedDirections = allowedNewDirectionsByOldDirection[direction.value];
     if (!allowedDirections.includes(newDirection)) return;
