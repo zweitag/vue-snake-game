@@ -1,41 +1,28 @@
+enum Direction {
+  RIGHT = "RIGHT",
+  LEFT = "LEFT",
+  UP = "UP",
+  DOWN = "DOWN",
+}
+
 let snake = [5];
 const candy = "🍬";
 
-export const calculateNewBoard = (oldBoard, direction, width, height) => {
-  let oldHeadPosition = snake[0]
+export const calculateNewBoard = (oldBoard, direction: Direction, width, height) => {
+  let oldHeadIndex = snake[0]
+  let newHeadIndex = calculateNewHeadPosition(direction, oldHeadIndex, width, height);
 
-  const length = width * height;
-  let newHeadPosition;
-  switch (direction) {
-    case "RIGHT":
-      const onRightEnd = (oldHeadPosition + 1) % width === 0;
-      newHeadPosition = onRightEnd ? oldHeadPosition - width + 1 : oldHeadPosition + 1;
-      break;
-    case "LEFT":
-      const onLeftEnd = oldHeadPosition % width === 0;
-      newHeadPosition = onLeftEnd ? oldHeadPosition + width - 1 : oldHeadPosition - 1;
-      break;
-    case "UP":
-      const onTop = oldHeadPosition < width;
-      newHeadPosition = onTop ? oldHeadPosition + width * (height - 1) : oldHeadPosition - width;
-      break;
-    case "DOWN":
-      const onBottom = oldHeadPosition > (width * (height -1));
-      newHeadPosition = (oldHeadPosition + width) % length;
-      break;
-  }
-
-  const ateCandy = oldBoard[newHeadPosition] === candy;
+  const ateCandy = oldBoard[newHeadIndex] === candy;
 
   // Update board
   const oldTailPosition = snake[snake.length - 1];
   const newBoard = [...oldBoard];
-  newBoard[newHeadPosition] = "🐍";
+  newBoard[newHeadIndex] = "🐍";
   if (!ateCandy) newBoard[oldTailPosition] = "";
 
   // Update snake
   if (!ateCandy) snake.pop();
-  snake.unshift(newHeadPosition);
+  snake.unshift(newHeadIndex);
 
   if (ateCandy) {
     const freeIndices = newBoard.map((item, index) => {
@@ -49,3 +36,19 @@ export const calculateNewBoard = (oldBoard, direction, width, height) => {
 
   return newBoard;
 };
+
+const calculateNewHeadPosition = (direction: Direction, oldIndex: number, width: number, height: number) => {
+  switch (direction) {
+    case Direction.RIGHT:
+      const onRightEnd = (oldIndex + 1) % width === 0;
+      return onRightEnd ? oldIndex - width + 1 : oldIndex + 1;
+    case Direction.LEFT:
+      const onLeftEnd = oldIndex % width === 0;
+      return onLeftEnd ? oldIndex + width - 1 : oldIndex - 1;
+    case Direction.UP:
+      const onTop = oldIndex < width;
+      return onTop ? oldIndex + width * (height - 1) : oldIndex - width;
+    case Direction.DOWN:
+      return (oldIndex + width) % (width * height);
+  }
+}
