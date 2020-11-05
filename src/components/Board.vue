@@ -12,8 +12,8 @@
 
 <script lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
-import { calculateNewBoard } from '../helpers/calculateNewBoard';
 import { useDirection } from '../composables/useDirection';
+import { Board } from '../Board';
 
 export default {
   name: 'Board',
@@ -32,15 +32,16 @@ export default {
     },
   },
   setup(props) {
+    const board = new Board(props.width, props.height);
+
     const candy = "🍬";
-    const boardArray = ref(new Array(props.width * props.height).fill(""));
-    boardArray.value[10] = candy;
+    const boardArray = ref(board.serialize());
 
     const { direction, directions, changeDirection } = useDirection();
 
     const updateBoard = () => {
-      const newBoard = calculateNewBoard(boardArray.value, direction.value, props.width, props.height);
-      boardArray.value = newBoard;
+      board.nextTick(direction.value);
+      boardArray.value = board.serialize();
     };
 
     const handle = setInterval(updateBoard, 1000.0 / props.fps);
