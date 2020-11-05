@@ -1,3 +1,5 @@
+type Board = string[];
+
 enum Direction {
   RIGHT = "RIGHT",
   LEFT = "LEFT",
@@ -8,31 +10,18 @@ enum Direction {
 let snake = [5];
 const candy = "🍬";
 
-export const calculateNewBoard = (oldBoard, direction: Direction, width, height) => {
-  let oldHeadIndex = snake[0]
-  let newHeadIndex = calculateNewHeadPosition(direction, oldHeadIndex, width, height);
+export const calculateNewBoard = (oldBoard: Board, direction: Direction, width: number, height: number) => {
+  const oldHeadIndex = snake[0]
+  const oldTailIndex = snake[snake.length - 1];
+  const newHeadIndex = calculateNewHeadPosition(direction, oldHeadIndex, width, height);
 
   const ateCandy = oldBoard[newHeadIndex] === candy;
 
-  // Update board
-  const oldTailPosition = snake[snake.length - 1];
-  const newBoard = [...oldBoard];
-  newBoard[newHeadIndex] = "🐍";
-  if (!ateCandy) newBoard[oldTailPosition] = "";
-
   // Update snake
-  if (!ateCandy) snake.pop();
-  snake.unshift(newHeadIndex);
+  updateSnake(ateCandy, newHeadIndex);
 
-  if (ateCandy) {
-    const freeIndices = newBoard.map((item, index) => {
-      if (item) return null;
-      return index;
-    }).filter((item) => item);
-    const number = Math.floor(Math.random() * freeIndices.length);
-    const candyIndex = freeIndices[number];
-    newBoard[candyIndex] = candy;
-  }
+  // Update board
+  const newBoard = updateBoard(oldBoard, newHeadIndex, oldTailIndex, ateCandy);
 
   return newBoard;
 };
@@ -51,4 +40,26 @@ const calculateNewHeadPosition = (direction: Direction, oldIndex: number, width:
     case Direction.DOWN:
       return (oldIndex + width) % (width * height);
   }
+}
+
+const updateSnake = (ateCandy: boolean, newHeadIndex: number): void => {
+  if (!ateCandy) snake.pop();
+  snake.unshift(newHeadIndex);
+}
+
+const updateBoard = (oldBoard: Board, newHeadIndex: number, oldTailIndex: number, ateCandy: boolean): Board => {
+  const newBoard = [...oldBoard];
+  newBoard[newHeadIndex] = "🐍";
+  if (!ateCandy) newBoard[oldTailIndex] = "";
+
+  if (ateCandy) {
+    const freeIndices = newBoard.map((item, index) => {
+      if (item) return null;
+      return index;
+    }).filter((item) => item);
+    const number = Math.floor(Math.random() * freeIndices.length);
+    const candyIndex = freeIndices[number];
+    newBoard[candyIndex] = candy;
+  }
+  return newBoard;
 }
