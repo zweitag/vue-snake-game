@@ -32,9 +32,10 @@ export default {
     },
   },
   setup(props) {
-    const snake = "🐍";
     const candy = "🍬";
-    const boardArray = ref(new Array(props.width * props.height).fill(candy));
+    const boardArray = ref(new Array(props.width * props.height).fill(""));
+    boardArray.value[10] = candy;
+    boardArray.value[16] = candy;
     const { direction, directions, changeDirection } = useDirection();
 
     const updateBoard = () => {
