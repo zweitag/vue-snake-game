@@ -1,7 +1,7 @@
 <template>
-  <div class="grid-container">
+  <div class="grid-container" :tabindex="-1" @keydown="handleKeypress">
     <div class="grid-item" v-for="(item, index) in boardArray" :key="index">
-      {{ item || "x" }}
+      {{ item || "" }}
     </div>
   </div>
   <button @click="changeDirection(d)" v-for="d in directions" :key="d">
@@ -24,7 +24,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 10,
+      default: 8,
     },
     fps: {
       type: Number,
@@ -33,7 +33,8 @@ export default {
   },
   setup(props) {
     const snake = "🐍";
-    const boardArray = ref(new Array(props.width * props.height).fill(''));
+    const candy = "🍬";
+    const boardArray = ref(new Array(props.width * props.height).fill(candy));
     const { direction, directions, changeDirection } = useDirection();
 
     const updateBoard = () => {
@@ -51,9 +52,11 @@ export default {
         "ArrowLeft": "LEFT",
         "ArrowRight": "RIGHT",
       };
-      changeDirection(mapping[key]);
+      const mapped = mapping[key];
+      if (!mapped) return;
+      changeDirection(mapped);
     };
-    window.addEventListener("keydown", handleKeypress);
+    // window.addEventListener("keydown", handleKeypress);
 
     return {
       boardArray,
