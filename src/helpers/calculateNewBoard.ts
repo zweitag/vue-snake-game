@@ -1,4 +1,5 @@
 let snake = [5];
+const candy = "🍬";
 
 export const calculateNewBoard = (oldBoard, direction, width, height) => {
   let oldHeadPosition = snake[0]
@@ -24,21 +25,26 @@ export const calculateNewBoard = (oldBoard, direction, width, height) => {
       break;
   }
 
-  const ateCandy = oldBoard[newHeadPosition] === "🍬";
-  const newBoard = [...oldBoard];
+  const ateCandy = oldBoard[newHeadPosition] === candy;
 
+  // Update board
   const oldTailPosition = snake[snake.length - 1];
-
-
-  // Board aktualisieren
+  const newBoard = [...oldBoard];
   newBoard[newHeadPosition] = "🐍";
   if (!ateCandy) newBoard[oldTailPosition] = "";
 
+  // Update snake
+  if (!ateCandy) snake.pop();
+  snake.unshift(newHeadPosition);
+
   if (ateCandy) {
-    snake.unshift(newHeadPosition)
-  } else {
-    snake.pop();
-    snake.unshift(newHeadPosition);
+    const freeIndices = newBoard.map((item, index) => {
+      if (item) return null;
+      return index;
+    }).filter((item) => item);
+    const number = Math.floor(Math.random() * freeIndices.length);
+    const candyIndex = freeIndices[number];
+    newBoard[candyIndex] = candy;
   }
 
   return newBoard;
