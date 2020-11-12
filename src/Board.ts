@@ -41,6 +41,16 @@ class Snake {
     if (!ateCandy) this.arr.pop();
     this.arr.unshift(newHeadIndex);
   }
+
+  occupiesBoardIndex(index: number): boolean {
+    return this.arr.includes(index);
+  }
+}
+
+export enum Result {
+  MOVED = 'MOVED',
+  ATE = 'ATE',
+  COLLIDED = 'COLLIDED',
 }
 
 export class Board {
@@ -52,9 +62,11 @@ export class Board {
     this.arr[10] = candy;
   }
 
-  nextTick(direction: Direction): void {
+  nextTick(direction: Direction): Result {
     const oldTailIndex = this.snake.currentTailIndex;
     const newHeadIndex = this.snake.nextHeadIndex(direction, this.width, this.height);
+
+    if (this.snake.occupiesBoardIndex(newHeadIndex)) return Result.COLLIDED;
 
     const ateCandy = this.arr[newHeadIndex] === candy;
 
@@ -72,6 +84,9 @@ export class Board {
       const candyIndex = freeIndices[number];
       this.arr[candyIndex] = candy;
     }
+
+    if (ateCandy) return Result.ATE;
+    return Result.MOVED;
   };
 
   serialize() : string[] {

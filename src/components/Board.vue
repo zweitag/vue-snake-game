@@ -13,7 +13,7 @@
 <script lang="ts">
 import { onBeforeUnmount, ref } from 'vue';
 import { useDirection } from '../composables/useDirection';
-import { Board } from '../Board';
+import { Board, Result } from '../Board';
 
 export default {
   name: 'Board',
@@ -40,8 +40,18 @@ export default {
     const { direction, directions, changeDirection } = useDirection();
 
     const updateBoard = () => {
-      board.nextTick(direction.value);
-      boardArray.value = board.serialize();
+      const result = board.nextTick(direction.value);
+
+      switch (result) {
+        case Result.COLLIDED:
+          clearInterval(handle);
+          alert("Game Over!");
+          break;
+        case Result.ATE:
+        case Result.MOVED:
+          boardArray.value = board.serialize();
+          break;
+      }
     };
 
     const handle = setInterval(updateBoard, 1000.0 / props.fps);
