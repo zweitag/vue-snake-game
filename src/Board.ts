@@ -1,12 +1,12 @@
 import { Direction } from './helpers/calculateNewBoard';
 
-const candy = "🍬";
+const candy = "candy";
 
 class Snake {
   private readonly arr: number[] = [];
 
-  constructor(initialHeadIndex: number) {
-    this.arr.push(initialHeadIndex);
+  constructor(initalIndices: number[]) {
+    initalIndices.forEach((index) => this.arr.push(index));
   }
 
   get currentHeadIndex() {
@@ -85,7 +85,7 @@ export enum Result {
 }
 
 export class Board {
-  private readonly snake = new Snake(0);
+  private readonly snake = new Snake([5, 4, 3, 2, 1, 0]);
   private readonly arr: string[];
 
   constructor(public readonly width: number, public readonly height: number) {
@@ -103,7 +103,7 @@ export class Board {
 
     this.snake.move(ateCandy, newHeadIndex);
 
-    this.arr[newHeadIndex] = "🐍";
+    this.arr[newHeadIndex] = `from-${this.snake.invertedMovementDirection(this.width, this.height).toLowerCase()}`;
     if (!ateCandy) this.arr[oldTailIndex] = "";
 
     if (ateCandy) {

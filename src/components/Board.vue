@@ -1,7 +1,6 @@
 <template>
   <div class="grid-container" :tabindex="-1" @keydown="handleKeypress">
-    <div class="grid-item" v-for="(item, index) in boardArray" :key="index">
-      {{ item || "" }}
+    <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
     </div>
   </div>
   <button @click="tryChangeDirection(d)" v-for="d in directions" :key="d">
@@ -35,7 +34,6 @@ export default {
   setup(props) {
     const board = new Board(props.width, props.height);
 
-    const candy = "🍬";
     const boardArray = ref(board.serialize());
 
     const { direction, directions, changeDirection } = useDirection();
@@ -97,5 +95,41 @@ export default {
   width: 50px;
   height: 50px;
   background-color: lightgray;
+}
+
+.candy:before {
+  content: '🍬';
+}
+
+.from-left:before {
+  content: '>';
+}
+
+.from-right:before {
+  content: '<';
+}
+
+.from-up:before {
+  content: 'v';
+}
+
+.from-down:before {
+  content: '^';
+}
+
+.from-left {
+  background-color: red;
+}
+
+.from-right {
+  background-color: green;
+}
+
+.from-up {
+  background-color: blue;
+}
+
+.from-down {
+  background-color: yellow;
 }
 </style>
