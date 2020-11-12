@@ -4,7 +4,7 @@
       {{ item || "" }}
     </div>
   </div>
-  <button @click="changeDirection(d)" v-for="d in directions" :key="d">
+  <button @click="tryChangeDirection(d)" v-for="d in directions" :key="d">
     Move {{ d.toLowerCase() }}
   </button>
   <div>Movement direction: {{ direction }}</div>
@@ -14,6 +14,7 @@
 import { onBeforeUnmount, ref } from 'vue';
 import { useDirection } from '../composables/useDirection';
 import { Board, Result } from '../Board';
+import { Direction } from '../helpers/calculateNewBoard';
 
 export default {
   name: 'Board',
@@ -57,16 +58,21 @@ export default {
     const handle = setInterval(updateBoard, 1000.0 / props.fps);
     onBeforeUnmount(() => clearInterval(handle));
 
+    const tryChangeDirection = (newDirection: Direction): void => {
+      const allowed = board.allowedMovementDirections();
+      if (allowed.includes(newDirection)) changeDirection(newDirection);
+    }
+
     const handleKeypress = ({ key }) => {
       let mapping = {
-        "ArrowUp": "UP",
-        "ArrowDown": "DOWN",
-        "ArrowLeft": "LEFT",
-        "ArrowRight": "RIGHT",
+        "ArrowUp": Direction.UP,
+        "ArrowDown": Direction.DOWN,
+        "ArrowLeft": Direction.LEFT,
+        "ArrowRight": Direction.RIGHT,
       };
       const mapped = mapping[key];
       if (!mapped) return;
-      changeDirection(mapped);
+      tryChangeDirection(mapped);
     };
     // window.addEventListener("keydown", handleKeypress);
 

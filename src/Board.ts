@@ -45,6 +45,37 @@ class Snake {
   occupiesBoardIndex(index: number): boolean {
     return this.arr.includes(index);
   }
+
+  movementDirection(width: number, height: number): Direction {
+    const first = this.arr[0];
+    const second = this.arr[1];
+    const { row: firstRow, column: firstColumn } = this.convertToRowColumn({ index: first, width });
+    const { row: secondRow, column: secondColumn } = this.convertToRowColumn({ index: second, width });
+
+    const lastRow = height - 1;
+    const lastColumn = width - 1;
+
+    if (firstRow > secondRow || firstRow === 0 && secondRow === lastRow) return Direction.DOWN;
+    if (firstRow < secondRow || firstRow === lastRow && secondRow === 0) return Direction.UP;
+    if (firstColumn > secondColumn || firstColumn === 0 && secondColumn === lastColumn) return Direction.RIGHT;
+    return Direction.LEFT;
+  }
+
+  invertedMovementDirection(width: number, height: number): Direction {
+    const direction = this.movementDirection(width, height);
+    switch (direction) {
+      case Direction.LEFT: return Direction.RIGHT;
+      case Direction.RIGHT: return Direction.LEFT;
+      case Direction.UP: return Direction.DOWN;
+      case Direction.DOWN: return Direction.UP;
+    }
+  }
+
+  convertToRowColumn({ index, width }: { index: number, width: number }): { row: number, column: number } {
+    const row = Math.floor(index / width);
+    const column = index % width;
+    return { row, column };
+  }
 }
 
 export enum Result {
@@ -91,5 +122,13 @@ export class Board {
 
   serialize() : string[] {
     return [...this.arr];
+  }
+
+  allowedMovementDirections() : Direction[] {
+    const allDirections = Object.values(Direction);
+    if (this.snake.length < 2) return allDirections;
+
+    const invertedMovementDirection = this.snake.invertedMovementDirection(this.width, this.height);
+    return allDirections.filter((d) => d !== invertedMovementDirection);
   }
 }
