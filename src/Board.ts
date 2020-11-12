@@ -55,14 +55,22 @@ class Snake {
     const lastRow = height - 1;
     const lastColumn = width - 1;
 
-    if (firstRow > secondRow || firstRow === 0 && secondRow === lastRow) return Direction.DOWN;
-    if (firstRow < secondRow || firstRow === lastRow && secondRow === 0) return Direction.UP;
-    if (firstColumn > secondColumn || firstColumn === 0 && secondColumn === lastColumn) return Direction.RIGHT;
-    return Direction.LEFT;
+    if (firstColumn === lastColumn && secondColumn === 0) return Direction.LEFT;
+    if (firstColumn === 0 && secondColumn === lastColumn) return Direction.RIGHT;
+    if (firstRow === 0 && secondRow === lastRow) return Direction.DOWN;
+    if (firstRow === lastRow && secondRow === 0) return Direction.UP;
+
+    if (firstRow > secondRow) return Direction.DOWN;
+    if (firstRow < secondRow) return Direction.UP;
+    if (firstColumn > secondColumn) return Direction.RIGHT;
+    if (firstColumn < secondColumn) return Direction.LEFT;
+
+    throw new Error('This should not happen!')
   }
 
   invertedMovementDirection(width: number, height: number): Direction {
     const direction = this.movementDirection(width, height);
+    console.log(direction);
     switch (direction) {
       case Direction.LEFT: return Direction.RIGHT;
       case Direction.RIGHT: return Direction.LEFT;
@@ -95,6 +103,7 @@ export class Board {
 
   nextTick(direction: Direction): Result {
     const oldTailIndex = this.snake.currentTailIndex;
+    const oldHeadindex = this.snake.currentHeadIndex;
     const newHeadIndex = this.snake.nextHeadIndex(direction, this.width, this.height);
 
     if (this.snake.occupiesBoardIndex(newHeadIndex)) return Result.COLLIDED;
@@ -103,7 +112,9 @@ export class Board {
 
     this.snake.move(ateCandy, newHeadIndex);
 
-    this.arr[newHeadIndex] = `from-${this.snake.invertedMovementDirection(this.width, this.height).toLowerCase()}`;
+    this.arr[newHeadIndex] = `snake from-${this.snake.invertedMovementDirection(this.width, this.height).toLowerCase()} head`;
+    const oldHeadClasses = this.arr[oldHeadindex].split(' ');
+    this.arr[oldHeadindex] = oldHeadClasses.slice(0, oldHeadClasses.length - 1).join(' ') + ` to-${direction.toLowerCase()}`;
     if (!ateCandy) this.arr[oldTailIndex] = "";
 
     if (ateCandy) {
@@ -114,6 +125,11 @@ export class Board {
       const number = Math.floor(Math.random() * freeIndices.length);
       const candyIndex = freeIndices[number];
       this.arr[candyIndex] = candy;
+    } else {
+      // Remove from-xxx class from tail
+      const newTailIndex = this.snake.currentTailIndex;
+      const old = this.arr[newTailIndex].split(' ');
+      this.arr[newTailIndex] = old[old.length - 1];
     }
 
     if (ateCandy) return Result.ATE;
