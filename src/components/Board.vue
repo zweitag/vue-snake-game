@@ -86,50 +86,82 @@ export default {
 </script>
 
 <style scoped vars="{ width }">
+* {
+  box-sizing: border-box;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(var(--width), 50px);
+  border: 1px solid black;
+  width: max-content;
+  margin: 0 auto;
 }
 
 .grid-item {
   width: 50px;
   height: 50px;
-  background-color: lightgray;
 }
 
 .candy:before {
   content: '🍬';
 }
 
-.from-left:before {
-  content: '>';
+.snake {
+  background: lightblue content-box;
 }
 
-.from-right:before {
-  content: '<';
+.head.from-left {
+  border-radius: 0 30px 30px 0;
+  padding: 5px 0;
 }
 
-.from-up:before {
-  content: 'v';
+.head.from-up {
+  border-radius: 0 0 30px 30px;
+  padding: 0px 5px;
 }
 
-.from-down:before {
-  content: '^';
+.head.from-right {
+  border-radius: 30px 0 0 30px;
+  padding: 5px 0px;
 }
 
-.from-left {
-  background-color: red;
+.head.from-down {
+  border-radius: 30px 30px 0 0;
+  padding: 0 5px;
 }
 
-.from-right {
-  background-color: green;
+.from-left.to-right,
+.from-right.to-left {
+  padding: 5px 0;
 }
 
-.from-up {
-  background-color: blue;
+.from-down.to-up,
+.from-up.to-down {
+  padding: 0 5px;
 }
 
-.from-down {
-  background-color: yellow;
+.from-left.to-down,
+.from-down.to-left {
+  border-top-right-radius: 30px;
+  padding: 5px 5px 0 0;
+}
+
+.from-left.to-up,
+.from-up.to-left {
+  border-bottom-right-radius: 30px;
+  padding:0 5px 5px 0;
+}
+
+.from-right.to-up,
+.from-up.to-right {
+  border-bottom-left-radius: 30px;
+  padding: 0 0 5px 5px;
+}
+
+.from-right.to-down,
+.from-down.to-right {
+  border-top-left-radius: 30px;
+  padding: 5px 0 0 5px;
 }
 </style>
