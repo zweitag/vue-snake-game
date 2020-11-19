@@ -126,10 +126,12 @@ export class Board {
       const candyIndex = freeIndices[number];
       this.arr[candyIndex] = candy;
     } else {
+      // snake from-left to-right
+      // snake to-right
       // Remove from-xxx class from tail
       const newTailIndex = this.snake.currentTailIndex;
       const old = this.arr[newTailIndex].split(' ');
-      this.arr[newTailIndex] = old[old.length - 1];
+      this.arr[newTailIndex] = `snake tail ${old[old.length - 1]}`;
     }
 
     if (ateCandy) return Result.ATE;

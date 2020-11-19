@@ -72,7 +72,6 @@ export default {
       if (!mapped) return;
       tryChangeDirection(mapped);
     };
-    // window.addEventListener("keydown", handleKeypress);
 
     return {
       boardArray,
@@ -109,6 +108,27 @@ export default {
 
 .snake {
   background: lightblue content-box;
+}
+
+
+.tail.to-left {
+  border-radius: 0 30px 30px 0;
+  padding: 5px 0;
+}
+
+.tail.to-up {
+  border-radius: 0 0 30px 30px;
+  padding: 0px 5px;
+}
+
+.tail.to-right {
+  border-radius: 30px 0 0 30px;
+  padding: 5px 0px;
+}
+
+.tail.to-down {
+  border-radius: 30px 30px 0 0;
+  padding: 0 5px;
 }
 
 .head.from-left {
