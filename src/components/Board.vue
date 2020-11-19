@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-container" :tabindex="-1" @keydown="handleKeypress">
+  <div class="grid-container" :tabindex="-1" @keydown.prevent="handleKeypress">
     <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
     </div>
   </div>
