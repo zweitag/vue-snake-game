@@ -1,13 +1,28 @@
 <template>
-  <div class="grid-container" :tabindex="-1" @keydown.up.left.down.right.prevent="handleKeypress">
-    <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
+  <div class="container">
+    <div v-if="showOverlay" class="overlay">
+      <button class="call-to-action" v-if="status === 'INITIALIZED'" @click="start">
+        Start Game
+      </button>
+      <div v-if="status === 'COLLIDED'">
+        Game Over!
+        <button class="call-to-action" @click="restart">
+          Play again
+        </button>
+      </div>
+    </div>
+    <div class="game-board" :tabindex="-1" @keydown.up.left.down.right.prevent="handleKeypress">
+      <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { computed } from 'vue';
 import { useSnakeGame } from '../composables/useSnakeGame';
 import { Direction } from '../helpers/calculateNewBoard';
+import { Result } from '../Board';
 
 export default {
   name: 'Board',
@@ -26,7 +41,7 @@ export default {
     },
   },
   setup(props) {
-    const { boardArray, changeDirection, start, pause, status } = useSnakeGame({ ...props });
+    const { boardArray, changeDirection, start, restart, pause, status } = useSnakeGame({ ...props });
 
     const handleKeypress = ({ key }) => {
       let mapping = {
@@ -41,13 +56,22 @@ export default {
 
     const gridSize = 50;
 
-    start();
+    const showOverlay = computed(() => {
+      if (status.value === Result.INITIALIZED) return true;
+      if (status.value === Result.COLLIDED) return true;
+      return false;
+    });
 
     return {
       boardArray,
       changeDirection,
       handleKeypress,
-      borderRadius: `${Math.round(gridSize / 1.5)}px`,
+      showOverlay,
+      status,
+      start,
+      restart,
+      // borderRadius: `${Math.round(gridSize / 1.5)}px`,
+      borderRadius: '0px',
       padding: `${Math.round(gridSize / 5)}px`,
       gridSize: `${gridSize}px`,
     };
@@ -60,7 +84,18 @@ export default {
   box-sizing: border-box;
 }
 
-.grid-container {
+.container {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.game-board {
   display: grid;
   grid-template-columns: repeat(var(--width), var(--gridSize));
   grid-template-rows: repeat(var(--height), var(--gridSize));
@@ -75,6 +110,44 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.call-to-action {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+  padding: 0.6em 1.2em;
+  border: 2px solid red;
+  border-radius: 4px;
+  background-color: red;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  transition: all .2s ease-in-out;
+}
+
+.call-to-action::after {
+  position: relative;
+  display: inline-block;
+  content: '›';
+  width: 14px;
+  margin-left: 8px;
+  transition: transform .2s ease-in-out;
+}
+
+.call-to-action:hover,
+.call-to-action:active,
+.call-to-action:focus {
+  border-color: red;
+  background-color: red;
+  color: red;
+  text-decoration: none;
 }
 
 .candy:before {
