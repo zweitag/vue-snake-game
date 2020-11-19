@@ -116,7 +116,7 @@ export default {
 }
 
 .snake {
-  background: lightblue content-box;
+  background: #008990 content-box;
 }
 
 
