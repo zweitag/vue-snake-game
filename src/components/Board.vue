@@ -3,9 +3,6 @@
     <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
     </div>
   </div>
-  <button @click="tryChangeDirection(d)" v-for="d in directions" :key="d">
-    Move {{ d.toLowerCase() }}
-  </button>
   <div>Movement direction: {{ direction }}</div>
 </template>
 
