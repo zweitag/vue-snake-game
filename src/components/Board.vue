@@ -3,13 +3,10 @@
     <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
     </div>
   </div>
-  <div>Movement direction: {{ direction }}</div>
 </template>
 
 <script lang="ts">
-import { onBeforeUnmount, ref } from 'vue';
-import { useDirection } from '../composables/useDirection';
-import { Board, Result } from '../Board';
+import { useSnakeGame } from '../composables/useSnakeGame';
 import { Direction } from '../helpers/calculateNewBoard';
 
 export default {
@@ -29,34 +26,7 @@ export default {
     },
   },
   setup(props) {
-    const board = new Board(props.width, props.height);
-
-    const boardArray = ref(board.serialize());
-
-    const { direction, directions, changeDirection } = useDirection();
-
-    const updateBoard = () => {
-      const result = board.nextTick(direction.value);
-
-      switch (result) {
-        case Result.COLLIDED:
-          clearInterval(handle);
-          alert("Game Over!");
-          break;
-        case Result.ATE:
-        case Result.MOVED:
-          boardArray.value = board.serialize();
-          break;
-      }
-    };
-
-    const handle = setInterval(updateBoard, 1000.0 / props.fps);
-    onBeforeUnmount(() => clearInterval(handle));
-
-    const tryChangeDirection = (newDirection: Direction): void => {
-      const allowed = board.allowedMovementDirections();
-      if (allowed.includes(newDirection)) changeDirection(newDirection);
-    }
+    const { boardArray, changeDirection, start, pause, status } = useSnakeGame({ ...props });
 
     const handleKeypress = ({ key }) => {
       let mapping = {
@@ -66,16 +36,15 @@ export default {
         "ArrowRight": Direction.RIGHT,
       };
       const mapped = mapping[key];
-      if (!mapped) return;
-      tryChangeDirection(mapped);
+      changeDirection(mapped);
     };
 
     const gridSize = 50;
 
+    start();
+
     return {
       boardArray,
-      direction,
-      directions,
       changeDirection,
       handleKeypress,
       borderRadius: `${Math.round(gridSize / 1.5)}px`,
