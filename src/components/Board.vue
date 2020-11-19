@@ -73,21 +73,23 @@ export default {
       tryChangeDirection(mapped);
     };
 
+    const gridSize = 50;
+
     return {
       boardArray,
       direction,
       directions,
       changeDirection,
       handleKeypress,
-      borderRadius: '30px',
-      padding: '5px',
-      gridSize: '25px',
+      borderRadius: `${Math.round(gridSize / 1.5)}px`,
+      padding: `${Math.round(gridSize / 5)}px`,
+      gridSize: `${gridSize}px`,
     };
   },
 };
 </script>
 
-<style scoped vars="{ width, borderRadius, padding, gridSize }">
+<style scoped vars="{ width, height, borderRadius, padding, gridSize }">
 * {
   box-sizing: border-box;
 }
@@ -95,6 +97,7 @@ export default {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(var(--width), var(--gridSize));
+  grid-template-rows: repeat(var(--height), var(--gridSize));
   border: 1px solid black;
   width: max-content;
   margin: 0 auto;
