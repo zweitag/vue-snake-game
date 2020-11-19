@@ -19,7 +19,7 @@ export const useDirection = (startDirection: Direction = Direction.RIGHT) => {
   };
 
   return {
-    direction: readonly(direction),
+    direction,
     directions,
     changeDirection,
   }

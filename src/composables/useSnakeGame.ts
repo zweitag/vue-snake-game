@@ -1,4 +1,4 @@
-import { ref, readonly, onBeforeUnmount, computed } from "vue";
+import { Ref, ref, readonly, onBeforeUnmount, computed } from "vue";
 
 import { useDirection } from './useDirection';
 import { Board, Result } from '../Board';
@@ -6,28 +6,29 @@ import { Direction } from '../helpers/calculateNewBoard';
 
 export const useSnakeGame = ({ width, height, fps }) => {
   let handle: NodeJS.Timeout = null;
+  let board = new Board(width, height);
+  const boardArray = ref(board.serialize());
   const updateInterval = 1000 / fps;
 
   const start = () => {
     handle = setInterval(updateBoard, updateInterval);
+    status.value = Result.MOVED;
   };
-
-  const pause = () => {
-    clearInterval(handle);
+  const restart = () => {
+    board = new Board(width, height);
+    direction.value = Direction.RIGHT;
+    boardArray.value = board.serialize();
+    start();
   };
+  const pause = () => { clearInterval(handle); };
 
-  const status = ref('MOVING');
-
-  const board = new Board(width, height);
-
-  const boardArray = ref(board.serialize());
+  const status = ref(Result.INITIALIZED);
 
   const { direction, changeDirection } = useDirection();
 
   const updateBoard = () => {
-    const result = board.nextTick(direction.value);
-    status.value = result;
-    switch (result) {
+    status.value = board.nextTick(direction.value);
+    switch (status.value) {
       case Result.COLLIDED:
         clearInterval(handle);
         break;
@@ -47,6 +48,7 @@ export const useSnakeGame = ({ width, height, fps }) => {
 
   return {
     start,
+    restart,
     pause,
     changeDirection: (newDirection) => tryChangeDirection(newDirection),
     status: readonly(status),

@@ -70,7 +70,6 @@ class Snake {
 
   invertedMovementDirection(width: number, height: number): Direction {
     const direction = this.movementDirection(width, height);
-    console.log(direction);
     switch (direction) {
       case Direction.LEFT: return Direction.RIGHT;
       case Direction.RIGHT: return Direction.LEFT;
@@ -90,6 +89,7 @@ export enum Result {
   MOVED = 'MOVED',
   ATE = 'ATE',
   COLLIDED = 'COLLIDED',
+  INITIALIZED = 'INITIALIZED',
 }
 
 export class Board {
