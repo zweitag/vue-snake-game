@@ -106,6 +106,9 @@ export default {
 .grid-item {
   width: var(--gridSize);
   height: var(--gridSize);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .candy:before {
