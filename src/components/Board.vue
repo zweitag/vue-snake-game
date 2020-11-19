@@ -79,27 +79,30 @@ export default {
       directions,
       changeDirection,
       handleKeypress,
+      borderRadius: '30px',
+      padding: '5px',
+      gridSize: '25px',
     };
   },
 };
 </script>
 
-<style scoped vars="{ width }">
+<style scoped vars="{ width, borderRadius, padding, gridSize }">
 * {
   box-sizing: border-box;
 }
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(var(--width), 50px);
+  grid-template-columns: repeat(var(--width), var(--gridSize));
   border: 1px solid black;
   width: max-content;
   margin: 0 auto;
 }
 
 .grid-item {
-  width: 50px;
-  height: 50px;
+  width: var(--gridSize);
+  height: var(--gridSize);
 }
 
 .candy:before {
@@ -112,76 +115,76 @@ export default {
 
 
 .tail.to-left {
-  border-radius: 0 30px 30px 0;
-  padding: 5px 0;
+  border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+  padding: var(--padding) 0;
 }
 
 .tail.to-up {
-  border-radius: 0 0 30px 30px;
-  padding: 0px 5px;
+  border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+  padding: 0px var(--padding);
 }
 
 .tail.to-right {
-  border-radius: 30px 0 0 30px;
-  padding: 5px 0px;
+  border-radius: var(--borderRadius) 0 0 var(--borderRadius);
+  padding: var(--padding) 0px;
 }
 
 .tail.to-down {
-  border-radius: 30px 30px 0 0;
-  padding: 0 5px;
+  border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+  padding: 0 var(--padding);
 }
 
 .head.from-left {
-  border-radius: 0 30px 30px 0;
-  padding: 5px 0;
+  border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+  padding: var(--padding) 0;
 }
 
 .head.from-up {
-  border-radius: 0 0 30px 30px;
-  padding: 0px 5px;
+  border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+  padding: 0px var(--padding);
 }
 
 .head.from-right {
-  border-radius: 30px 0 0 30px;
-  padding: 5px 0px;
+  border-radius: var(--borderRadius) 0 0 var(--borderRadius);
+  padding: var(--padding) 0px;
 }
 
 .head.from-down {
-  border-radius: 30px 30px 0 0;
-  padding: 0 5px;
+  border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+  padding: 0 var(--padding);
 }
 
 .from-left.to-right,
 .from-right.to-left {
-  padding: 5px 0;
+  padding: var(--padding) 0;
 }
 
 .from-down.to-up,
 .from-up.to-down {
-  padding: 0 5px;
+  padding: 0 var(--padding);
 }
 
 .from-left.to-down,
 .from-down.to-left {
-  border-top-right-radius: 30px;
-  padding: 5px 5px 0 0;
+  border-top-right-radius: var(--borderRadius);
+  padding: var(--padding) var(--padding) 0 0;
 }
 
 .from-left.to-up,
 .from-up.to-left {
-  border-bottom-right-radius: 30px;
-  padding:0 5px 5px 0;
+  border-bottom-right-radius: var(--borderRadius);
+  padding:0 var(--padding) var(--padding) 0;
 }
 
 .from-right.to-up,
 .from-up.to-right {
-  border-bottom-left-radius: 30px;
-  padding: 0 0 5px 5px;
+  border-bottom-left-radius: var(--borderRadius);
+  padding: 0 0 var(--padding) var(--padding);
 }
 
 .from-right.to-down,
 .from-down.to-right {
-  border-top-left-radius: 30px;
-  padding: 5px 0 0 5px;
+  border-top-left-radius: var(--borderRadius);
+  padding: var(--padding) 0 0 var(--padding);
 }
 </style>
