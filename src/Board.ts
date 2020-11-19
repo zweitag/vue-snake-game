@@ -43,7 +43,7 @@ class Snake {
   }
 
   occupiesBoardIndex(index: number): boolean {
-    return this.arr.includes(index);
+    return this.arr.slice(0, this.arr.length -1).includes(index);
   }
 
   movementDirection(width: number, height: number): Direction {
@@ -115,7 +115,7 @@ export class Board {
     this.arr[newHeadIndex] = `snake from-${this.snake.invertedMovementDirection(this.width, this.height).toLowerCase()} head`;
     const oldHeadClasses = this.arr[oldHeadindex].split(' ');
     this.arr[oldHeadindex] = oldHeadClasses.slice(0, oldHeadClasses.length - 1).join(' ') + ` to-${direction.toLowerCase()}`;
-    if (!ateCandy) this.arr[oldTailIndex] = "";
+    if (!ateCandy && oldTailIndex !== newHeadIndex) this.arr[oldTailIndex] = "";
 
     if (ateCandy) {
       const freeIndices = this.arr.map((item, index) => {
