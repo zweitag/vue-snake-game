@@ -120,9 +120,10 @@ export default {
   overflow: hidden;
   max-width: 100%;
   padding: 0.6em 1.2em;
-  border: 2px solid red;
+  border: 2px solid hsl(352, 100%, 66%);
   border-radius: 4px;
-  background-color: red;
+  background-color: hsl(352, 100%, 66%);;
+  color: hsl(192, 1%, 99%);
   font-weight: 600;
   text-align: center;
   color: white;
@@ -144,9 +145,8 @@ export default {
 .call-to-action:hover,
 .call-to-action:active,
 .call-to-action:focus {
-  border-color: red;
-  background-color: red;
-  color: red;
+  border-color: hsl(352, 65%, 51%);
+  background-color: hsl(352, 100%, 66%);
   text-decoration: none;
 }
 
