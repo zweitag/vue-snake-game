@@ -2,11 +2,11 @@ import { ref } from 'vue';
 import { Direction } from '../types';
 
 const allowedNewDirectionsByOldDirection = {
-  "LEFT": ["UP", "DOWN"],
-  "RIGHT": ["UP", "DOWN"],
-  "UP": ["LEFT", "RIGHT"],
-  "DOWN": ["LEFT", "RIGHT"],
-}
+  LEFT: ['UP', 'DOWN'],
+  RIGHT: ['UP', 'DOWN'],
+  UP: ['LEFT', 'RIGHT'],
+  DOWN: ['LEFT', 'RIGHT'],
+};
 
 export const useDirection = (startDirection: Direction = Direction.RIGHT) => {
   const direction = ref(startDirection);
@@ -22,5 +22,5 @@ export const useDirection = (startDirection: Direction = Direction.RIGHT) => {
     direction,
     directions,
     changeDirection,
-  }
-}
+  };
+};

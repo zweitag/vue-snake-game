@@ -1,19 +1,37 @@
 <template>
   <div class="container">
-    <div v-if="showOverlay" class="overlay">
-      <button class="call-to-action" v-if="status === 'INITIALIZED'" @click="start">
+    <div
+      v-if="showOverlay"
+      class="overlay"
+    >
+      <button
+        v-if="status === 'INITIALIZED'"
+        class="call-to-action"
+        @click="start"
+      >
         Start Game
       </button>
       <div v-if="status === 'COLLIDED'">
         Game Over!
-        <button class="call-to-action" @click="restart">
+        <button
+          class="call-to-action"
+          @click="restart"
+        >
           Play again
         </button>
       </div>
     </div>
-    <div class="game-board" :tabindex="-1" @keydown.up.left.down.right.prevent="handleKeypress">
-      <div class="grid-item" :class="item" v-for="(item, index) in boardArray" :key="index">
-      </div>
+    <div
+      class="game-board"
+      :tabindex="-1"
+      @keydown.up.left.down.right.prevent="handleKeypress"
+    >
+      <div
+        v-for="(item, index) in boardArray"
+        :key="index"
+        class="grid-item"
+        :class="item"
+      />
     </div>
   </div>
 </template>
@@ -40,14 +58,16 @@ export default {
     },
   },
   setup(props) {
-    const { boardArray, changeDirection, start, restart, pause, status } = useSnakeGame({ ...props });
+    const {
+      boardArray, changeDirection, start, restart, status,
+    } = useSnakeGame({ ...props });
 
     const handleKeypress = ({ key }) => {
-      let mapping = {
-        "ArrowUp": Direction.UP,
-        "ArrowDown": Direction.DOWN,
-        "ArrowLeft": Direction.LEFT,
-        "ArrowRight": Direction.RIGHT,
+      const mapping = {
+        ArrowUp: Direction.UP,
+        ArrowDown: Direction.DOWN,
+        ArrowLeft: Direction.LEFT,
+        ArrowRight: Direction.RIGHT,
       };
       const mapped = mapping[key];
       changeDirection(mapped);
@@ -156,7 +176,6 @@ export default {
 .snake {
   background: #008990 content-box;
 }
-
 
 .tail.to-left {
   border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
