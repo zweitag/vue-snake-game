@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'plugin:vue/recommended',
+    '@vue/typescript/recommended',
   ],
   env: {
     browser: true,
