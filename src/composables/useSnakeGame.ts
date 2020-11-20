@@ -1,8 +1,8 @@
 import { Ref, ref, readonly, onBeforeUnmount, computed } from "vue";
 
 import { useDirection } from './useDirection';
-import { Board, Result } from '../Board';
-import { Direction } from '../helpers/calculateNewBoard';
+import { Board } from '../Board';
+import { Direction, Status } from '../types';
 
 export const useSnakeGame = ({ width, height, fps }) => {
   let handle: NodeJS.Timeout = null;
@@ -12,7 +12,7 @@ export const useSnakeGame = ({ width, height, fps }) => {
 
   const start = () => {
     handle = setInterval(updateBoard, updateInterval);
-    status.value = Result.MOVED;
+    status.value = Status.MOVED;
   };
   const restart = () => {
     board = new Board(width, height);
@@ -22,18 +22,18 @@ export const useSnakeGame = ({ width, height, fps }) => {
   };
   const pause = () => { clearInterval(handle); };
 
-  const status = ref(Result.INITIALIZED);
+  const status = ref(Status.INITIALIZED);
 
   const { direction, changeDirection } = useDirection();
 
   const updateBoard = () => {
     status.value = board.nextTick(direction.value);
     switch (status.value) {
-      case Result.COLLIDED:
+      case Status.COLLIDED:
         clearInterval(handle);
         break;
-      case Result.ATE:
-      case Result.MOVED:
+      case Status.ATE:
+      case Status.MOVED:
         boardArray.value = board.serialize();
         break;
     }

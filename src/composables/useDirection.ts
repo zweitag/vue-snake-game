@@ -1,5 +1,5 @@
-import { readonly, ref } from 'vue';
-import { Direction } from '../helpers/calculateNewBoard';
+import { ref } from 'vue';
+import { Direction } from '../types';
 
 const allowedNewDirectionsByOldDirection = {
   "LEFT": ["UP", "DOWN"],

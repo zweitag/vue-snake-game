@@ -21,8 +21,7 @@
 <script lang="ts">
 import { computed } from 'vue';
 import { useSnakeGame } from '../composables/useSnakeGame';
-import { Direction } from '../helpers/calculateNewBoard';
-import { Result } from '../Board';
+import { Direction, Status } from '../types';
 
 export default {
   name: 'Board',
@@ -57,8 +56,8 @@ export default {
     const gridSize = 50;
 
     const showOverlay = computed(() => {
-      if (status.value === Result.INITIALIZED) return true;
-      if (status.value === Result.COLLIDED) return true;
+      if (status.value === Status.INITIALIZED) return true;
+      if (status.value === Status.COLLIDED) return true;
       return false;
     });
 

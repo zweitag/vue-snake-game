@@ -1,4 +1,4 @@
-import { Direction } from './helpers/calculateNewBoard';
+import { Direction, Status } from './types';
 
 const candy = "candy";
 
@@ -85,13 +85,6 @@ class Snake {
   }
 }
 
-export enum Result {
-  MOVED = 'MOVED',
-  ATE = 'ATE',
-  COLLIDED = 'COLLIDED',
-  INITIALIZED = 'INITIALIZED',
-}
-
 export class Board {
   private readonly snake = new Snake([5, 4, 3, 2, 1, 0]);
   private readonly arr: string[];
@@ -101,12 +94,12 @@ export class Board {
     this.arr[10] = candy;
   }
 
-  nextTick(direction: Direction): Result {
+  nextTick(direction: Direction): Status {
     const oldTailIndex = this.snake.currentTailIndex;
     const oldHeadindex = this.snake.currentHeadIndex;
     const newHeadIndex = this.snake.nextHeadIndex(direction, this.width, this.height);
 
-    if (this.snake.occupiesBoardIndex(newHeadIndex)) return Result.COLLIDED;
+    if (this.snake.occupiesBoardIndex(newHeadIndex)) return Status.COLLIDED;
 
     const ateCandy = this.arr[newHeadIndex] === candy;
 
@@ -134,8 +127,8 @@ export class Board {
       this.arr[newTailIndex] = `snake tail ${old[old.length - 1]}`;
     }
 
-    if (ateCandy) return Result.ATE;
-    return Result.MOVED;
+    if (ateCandy) return Status.ATE;
+    return Status.MOVED;
   };
 
   serialize() : string[] {
