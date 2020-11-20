@@ -4,7 +4,9 @@ import { useDirection } from './useDirection';
 import { Board } from '../Board';
 import { Direction, Status } from '../types';
 
-export const useSnakeGame = ({ width, height, fps }) => {
+export const useSnakeGame = (
+  { width, height, fps }: { width: number, height: number, fps: number },
+) => {
   let handle: NodeJS.Timeout = null;
   let board = new Board(width, height);
   const boardArray = ref(board.serialize());
