@@ -181,75 +181,75 @@ export default {
 }
 
 .tail.to-left {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(180deg);
 }
 
 .tail.to-up {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(270deg);
 }
 
 .tail.to-right {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(0deg);
 }
 
 .tail.to-down {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(90deg);
 }
 
 .head.from-left {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(180deg);
 }
 
 .head.from-up {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(270deg);
 }
 
 .head.from-right {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .head.from-down {
-  background-image: url('../assets/snake/HeadTail.svg');
+  background-image: url('/snake/HeadTail.svg');
   transform: rotate(90deg);
 }
 
 .from-left.to-right,
 .from-right.to-left {
-  background-image: url('../assets/snake/Middle.svg');
+  background-image: url('/snake/Middle.svg');
   transform: rotate(90deg);
 }
 
 .from-down.to-up,
 .from-up.to-down {
-  background-image: url('../assets/snake/Middle.svg');
+  background-image: url('/snake/Middle.svg');
 }
 
 .from-left.to-down,
 .from-down.to-left {
-  background-image: url('../assets/snake/Curve.svg');
+  background-image: url('/snake/Curve.svg');
 }
 
 .from-left.to-up,
 .from-up.to-left {
-  background-image: url('../assets/snake/Curve.svg');
+  background-image: url('/snake/Curve.svg');
   transform: rotate(90deg);
 }
 
 .from-right.to-up,
 .from-up.to-right {
-  background-image: url('../assets/snake/Curve.svg');
+  background-image: url('/snake/Curve.svg');
   transform: rotate(180deg);
 }
 
 .from-right.to-down,
 .from-down.to-right {
-  background-image: url('../assets/snake/Curve.svg');
+  background-image: url('/snake/Curve.svg');
   transform: rotate(270deg);
 }
 </style>
