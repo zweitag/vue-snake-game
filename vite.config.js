@@ -1,6 +1,11 @@
 import legacyPlugin from 'vite-plugin-legacy';
 
 export default {
+  rollupOutputOptions: {
+    entryFileNames: '[name].js',
+    chunkFileNames: '[name].js',
+    assetFileNames: '[name].[ext]',
+  },
   plugins: [
     // The default options are listed below. Pass nothing to use them.
     legacyPlugin({
