@@ -89,8 +89,7 @@ export default {
       status,
       start,
       restart,
-      // borderRadius: `${Math.round(gridSize / 1.5)}px`,
-      borderRadius: '0px',
+      borderRadius: `${Math.round(gridSize / 1.5)}px`,
       padding: `${Math.round(gridSize / 5)}px`,
       gridSize: `${gridSize}px`,
     };
