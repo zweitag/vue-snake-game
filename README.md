@@ -7,7 +7,7 @@ yarn install
 yarn dev
 ```
 
-and visit [localhost](localhost:3000) to play the game!
+and visit [localhost:3000](http://localhost:3000) to play the game!
 
 ## Building the Game
 
