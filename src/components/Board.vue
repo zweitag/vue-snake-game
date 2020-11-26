@@ -7,7 +7,7 @@
       <button
         v-if="status === 'INITIALIZED'"
         class="call-to-action"
-        @click="start"
+        @click="onStart"
       >
         Start Game
       </button>
@@ -22,6 +22,7 @@
       </div>
     </div>
     <div
+      ref="containerRef"
       class="game-board"
       :tabindex="-1"
       @keydown.up.left.down.right.prevent="handleKeypress"
@@ -37,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useSnakeGame } from '../composables/useSnakeGame';
 import { Direction, Status } from '../types';
 
@@ -81,13 +82,20 @@ export default {
       return false;
     });
 
+    const containerRef = ref(null);
+    const onStart = () => {
+      containerRef.value.focus();
+      start();
+    };
+
     return {
       boardArray,
       changeDirection,
       handleKeypress,
       showOverlay,
       status,
-      start,
+      containerRef,
+      onStart,
       restart,
       borderRadius: `${Math.round(gridSize / 1.5)}px`,
       padding: `${Math.round(gridSize / 5)}px`,
