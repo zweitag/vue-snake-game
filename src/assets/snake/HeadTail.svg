@@ -3,8 +3,13 @@
 <svg width="100%" height="100%" viewBox="0 0 591 591" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="ArtBoard1" transform="matrix(6.78794,0,0,3.64538,1052.13,-309.857)">
         <rect x="-155" y="85" width="87" height="162" style="fill:none;"/>
-        <g transform="matrix(0.672605,0,0,0.42951,-406.32,59.2667)">
-            <path d="M503,75L443.5,75C427.72,75 412.586,93.279 401.427,125.817C390.269,158.354 384,202.485 384,248.5L384,248.5C384,294.515 390.269,338.646 401.427,371.183C412.586,403.721 427.72,422 443.5,422L503,422L503,75Z" style="fill:rgb(235,235,235);"/>
+        <clipPath id="_clip1">
+            <rect x="-155" y="85" width="87" height="162"/>
+        </clipPath>
+        <g clip-path="url(#_clip1)">
+            <g transform="matrix(0.526387,0,0,0.336138,-332.772,82.4696)">
+                <path d="M503,75L443.5,75C427.72,75 412.586,93.279 401.427,125.817C390.269,158.354 384,202.485 384,248.5L384,248.5C384,294.515 390.269,338.646 401.427,371.183C412.586,403.721 427.72,422 443.5,422L503,422L503,75Z" style="fill:rgb(235,235,235);"/>
+            </g>
         </g>
     </g>
 </svg>
