@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-vue": "^7.1.0",
     "vite": "^1.0.0-rc.8",
+    "vite-plugin-legacy": "^0.1.5",
     "vue-eslint-parser": "^7.1.1"
   }
 }
