@@ -112,6 +112,8 @@ export default {
 
 .container {
   position: relative;
+  width: 400px;
+  height: 400px;
 }
 
 .overlay {
@@ -123,16 +125,17 @@ export default {
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(var(--width), var(--gridSize));
-  grid-template-rows: repeat(var(--height), var(--gridSize));
+  grid-template-columns: repeat(var(--width), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--height), minmax(0, 1fr));
   border: 1px solid black;
-  width: max-content;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
 }
 
 .grid-item {
-  width: var(--gridSize);
-  height: var(--gridSize);
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,6 +181,10 @@ export default {
 
 .candy:before {
   content: '🍬';
+}
+
+.snake {
+  background-size: cover;
 }
 
 .tail.to-left {
