@@ -172,81 +172,76 @@ export default {
   content: '🍬';
 }
 
-.snake {
-  background: #008990 content-box;
-}
-
 .tail.to-left {
-  border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
-  padding: var(--padding) 0;
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(180deg);
 }
 
 .tail.to-up {
-  border-radius: 0 0 var(--borderRadius) var(--borderRadius);
-  padding: 0px var(--padding);
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(270deg);
 }
 
 .tail.to-right {
-  border-radius: var(--borderRadius) 0 0 var(--borderRadius);
-  padding: var(--padding) 0px;
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(0deg);
 }
 
 .tail.to-down {
-  border-radius: var(--borderRadius) var(--borderRadius) 0 0;
-  padding: 0 var(--padding);
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(90deg);
 }
 
 .head.from-left {
-  border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
-  padding: var(--padding) 0;
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(180deg);
 }
 
 .head.from-up {
-  border-radius: 0 0 var(--borderRadius) var(--borderRadius);
-  padding: 0px var(--padding);
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(270deg);
 }
 
 .head.from-right {
-  border-radius: var(--borderRadius) 0 0 var(--borderRadius);
-  padding: var(--padding) 0px;
+  background-image: url('../assets/snake/HeadTail.svg');
 }
 
 .head.from-down {
-  border-radius: var(--borderRadius) var(--borderRadius) 0 0;
-  padding: 0 var(--padding);
+  background-image: url('../assets/snake/HeadTail.svg');
+  transform: rotate(90deg);
 }
 
 .from-left.to-right,
 .from-right.to-left {
-  padding: var(--padding) 0;
+  background-image: url('../assets/snake/Middle.svg');
+  transform: rotate(90deg);
 }
 
 .from-down.to-up,
 .from-up.to-down {
-  padding: 0 var(--padding);
+  background-image: url('../assets/snake/Middle.svg');
 }
 
 .from-left.to-down,
 .from-down.to-left {
-  border-top-right-radius: var(--borderRadius);
-  padding: var(--padding) var(--padding) 0 0;
+  background-image: url('../assets/snake/Curve.svg');
 }
 
 .from-left.to-up,
 .from-up.to-left {
-  border-bottom-right-radius: var(--borderRadius);
-  padding:0 var(--padding) var(--padding) 0;
+  background-image: url('../assets/snake/Curve.svg');
+  transform: rotate(90deg);
 }
 
 .from-right.to-up,
 .from-up.to-right {
-  border-bottom-left-radius: var(--borderRadius);
-  padding: 0 0 var(--padding) var(--padding);
+  background-image: url('../assets/snake/Curve.svg');
+  transform: rotate(180deg);
 }
 
 .from-right.to-down,
 .from-down.to-right {
-  border-top-left-radius: var(--borderRadius);
-  padding: var(--padding) 0 0 var(--padding);
+  background-image: url('../assets/snake/Curve.svg');
+  transform: rotate(270deg);
 }
 </style>
