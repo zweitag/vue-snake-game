@@ -51,7 +51,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 8,
+      default: 10,
     },
     fps: {
       type: Number,
