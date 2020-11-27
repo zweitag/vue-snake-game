@@ -15,7 +15,7 @@
         <div>Game Over!</div>
         <button
           class="call-to-action"
-          @click="restart"
+          @click="onRestart"
         >
           Play again
         </button>
