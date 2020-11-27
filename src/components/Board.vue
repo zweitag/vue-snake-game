@@ -47,15 +47,15 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 11,
+      default: 7,
     },
     height: {
       type: Number,
-      default: 11,
+      default: 7,
     },
     fps: {
       type: Number,
-      default: 3,
+      default: 4,
     },
     withWalls: {
       type: Boolean,
