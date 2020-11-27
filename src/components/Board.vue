@@ -74,8 +74,6 @@ export default {
       changeDirection(mapped);
     };
 
-    const gridSize = 50;
-
     const showOverlay = computed(() => {
       if (status.value === Status.INITIALIZED) return true;
       if (status.value === Status.COLLIDED) return true;
@@ -102,15 +100,12 @@ export default {
       containerRef,
       onStart,
       onRestart,
-      borderRadius: `${Math.round(gridSize / 1.5)}px`,
-      padding: `${Math.round(gridSize / 5)}px`,
-      gridSize: `${gridSize}px`,
     };
   },
 };
 </script>
 
-<style scoped vars="{ width, height, borderRadius, padding, gridSize }">
+<style scoped vars="{ width, height }">
 * {
   box-sizing: border-box;
 }
