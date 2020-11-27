@@ -127,60 +127,60 @@ export default {
   display: grid;
   grid-template-columns: repeat(var(--width), minmax(0, 1fr));
   grid-template-rows: repeat(var(--height), minmax(0, 1fr));
-  border: 1px solid black;
   width: 100%;
   height: 100%;
+  outline: 0;
   margin: 0 auto;
+  border: 1px solid black;
 }
 
 .grid-item {
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .call-to-action {
+  appearance: none;
   display: inline-block;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  vertical-align: middle;
   max-width: 100%;
-  padding: 0.6em 1.2em;
   border: 2px solid hsl(352, 100%, 66%);
   border-radius: 4px;
-  background-color: hsl(352, 100%, 66%);;
-  color: hsl(192, 1%, 99%);
+  padding: 0.6em 1.2em;
   font-weight: 600;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: white;
+  background-color: hsl(352, 100%, 66%);;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
   user-select: none;
-  appearance: none;
-  transition: all .2s ease-in-out;
 }
 
 .call-to-action::after {
-  position: relative;
-  display: inline-block;
   content: '›';
+  display: inline-block;
+  position: relative;
   width: 14px;
   margin-left: 8px;
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .call-to-action:hover,
 .call-to-action:active,
 .call-to-action:focus {
   border-color: hsl(352, 65%, 51%);
-  background-color: hsl(352, 100%, 66%);
   text-decoration: none;
+  background-color: hsl(352, 100%, 66%);
 }
 
-.candy:before {
   content: '🍬';
+.candy::before {
 }
 
 .snake {
@@ -188,33 +188,33 @@ export default {
 }
 
 .tail.to-left {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(180deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .tail.to-up {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(270deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .tail.to-right {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(0deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .tail.to-down {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(90deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .head.from-left {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(180deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .head.from-up {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(270deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .head.from-right {
@@ -222,14 +222,14 @@ export default {
 }
 
 .head.from-down {
-  background-image: url('/snake/HeadTail.svg');
   transform: rotate(90deg);
+  background-image: url('/snake/HeadTail.svg');
 }
 
 .from-left.to-right,
 .from-right.to-left {
-  background-image: url('/snake/Middle.svg');
   transform: rotate(90deg);
+  background-image: url('/snake/Middle.svg');
 }
 
 .from-down.to-up,
@@ -244,19 +244,19 @@ export default {
 
 .from-left.to-up,
 .from-up.to-left {
-  background-image: url('/snake/Curve.svg');
   transform: rotate(90deg);
+  background-image: url('/snake/Curve.svg');
 }
 
 .from-right.to-up,
 .from-up.to-right {
-  background-image: url('/snake/Curve.svg');
   transform: rotate(180deg);
+  background-image: url('/snake/Curve.svg');
 }
 
 .from-right.to-down,
 .from-down.to-right {
-  background-image: url('/snake/Curve.svg');
   transform: rotate(270deg);
+  background-image: url('/snake/Curve.svg');
 }
 </style>
