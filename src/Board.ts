@@ -86,12 +86,16 @@ class Snake {
 }
 
 export class Board {
-  private readonly snake = new Snake([5, 4, 3, 2, 1, 0]);
+  private readonly snake: Snake;
   private readonly arr: string[];
 
   constructor(public readonly width: number, public readonly height: number) {
     this.arr = new Array(width * height).fill('');
     this.arr[10] = candy;
+    this.snake = new Snake([2, 1, 0]);
+    this.arr[2] = 'snake from-left head';
+    this.arr[1] = 'snake from-left to-right';
+    this.arr[0] = 'snake to-right tail';
   }
 
   nextTick(direction: Direction): Status {
