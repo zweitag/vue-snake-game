@@ -5,10 +5,17 @@ import { Board } from '../Board';
 import { Direction, Status } from '../types';
 
 export const useSnakeGame = (
-  { width, height, fps }: { width: number, height: number, fps: number },
+  {
+    width, height, fps, withWalls,
+  }: {
+    width: number,
+    height: number,
+    fps: number,
+    withWalls: boolean,
+  },
 ) => {
   let handle: NodeJS.Timeout = null;
-  let board = new Board(width, height);
+  let board = new Board(width, height, withWalls);
   const boardArray = ref(board.serialize());
   const updateInterval = 1000 / fps;
   const status = ref(Status.INITIALIZED);
@@ -34,7 +41,7 @@ export const useSnakeGame = (
     status.value = Status.MOVED;
   };
   const restart = () => {
-    board = new Board(width, height);
+    board = new Board(width, height, withWalls);
     direction.value = Direction.RIGHT;
     boardArray.value = board.serialize();
     start();

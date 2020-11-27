@@ -57,6 +57,10 @@ export default {
       type: Number,
       default: 3,
     },
+    withWalls: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props) {
     const {
