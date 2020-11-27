@@ -12,7 +12,7 @@
         Start Game
       </button>
       <div v-if="status === 'COLLIDED'">
-        Game Over!
+        <div>Game Over!</div>
         <button
           class="call-to-action"
           @click="restart"
@@ -47,11 +47,11 @@ export default {
   props: {
     width: {
       type: Number,
-      default: 10,
+      default: 11,
     },
     height: {
       type: Number,
-      default: 10,
+      default: 11,
     },
     fps: {
       type: Number,
@@ -117,10 +117,18 @@ export default {
 }
 
 .overlay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background-color: hsla(0, 0%, 100%, 0.8);
 }
 
 .game-board {
@@ -131,7 +139,6 @@ export default {
   height: 100%;
   outline: 0;
   margin: 0 auto;
-  border: 1px solid black;
 }
 
 .grid-item {
@@ -140,6 +147,13 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.grid-item:nth-child(even) {
+  background-color: hsla(183, 28%, 84%, 100%);
+}
+.grid-item:nth-child(odd) {
+  background-color: hsla(183, 28%, 84%, 50%);
 }
 
 .call-to-action {
@@ -155,11 +169,12 @@ export default {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: white;
-  background-color: hsl(352, 100%, 66%);;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(352, 100%, 66%);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   user-select: none;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .call-to-action::after {
@@ -172,11 +187,16 @@ export default {
 }
 
 .call-to-action:hover,
-.call-to-action:active,
 .call-to-action:focus {
   border-color: hsl(352, 65%, 51%);
   text-decoration: none;
-  background-color: hsl(352, 100%, 66%);
+  color: hsl(0, 0, 100%);
+  background-color: hsl(352, 65%, 51%);
+}
+
+.call-to-action:hover::after,
+.call-to-action:focus::after {
+  transform: translateX(2px);
 }
 
 .candy::before {
@@ -191,79 +211,204 @@ export default {
 }
 
 .snake {
-  background-size: cover;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
-.tail.to-left {
-  transform: rotate(180deg);
-  background-image: url('/snake/HeadTail.svg');
+.snake::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: #008990;
+  background-image: radial-gradient(circle, hsl(160, 100%, 33%) 15%, transparent 10%), radial-gradient(circle, hsl(160, 100%, 33%) 15%, transparent 10%);
+  background-position: 0 0, 10px 10px;
+  background-size: 10px 10px;
 }
 
-.tail.to-up {
-  transform: rotate(270deg);
-  background-image: url('/snake/HeadTail.svg');
-}
-
-.tail.to-right {
-  transform: rotate(0deg);
-  background-image: url('/snake/HeadTail.svg');
-}
-
-.tail.to-down {
-  transform: rotate(90deg);
-  background-image: url('/snake/HeadTail.svg');
-}
-
-.head.from-left {
-  transform: rotate(180deg);
-  background-image: url('/snake/HeadTail.svg');
-}
-
-.head.from-up {
-  transform: rotate(270deg);
-  background-image: url('/snake/HeadTail.svg');
+/* Head */
+.head::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-image: url('/snake/face.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .head.from-right {
-  background-image: url('/snake/HeadTail.svg');
+  justify-content: flex-end;
+}
+
+.head.from-left {
+  justify-content: flex-start;
+}
+.head.from-left::after {
+  transform: rotate(180deg);
+}
+
+.head.from-up {
+  align-items: flex-start;
+}
+.head.from-up::after {
+  transform: rotate(270deg);
 }
 
 .head.from-down {
+  align-items: flex-end;
+}
+.head.from-down::after {
   transform: rotate(90deg);
-  background-image: url('/snake/HeadTail.svg');
 }
 
-.from-left.to-right,
-.from-right.to-left {
-  transform: rotate(90deg);
-  background-image: url('/snake/Middle.svg');
+.head.from-left::before {
+  width: 70%;
+  height: 70%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
 }
 
-.from-down.to-up,
-.from-up.to-down {
-  background-image: url('/snake/Middle.svg');
+.head.from-right::before {
+  width: 70%;
+  height: 70%;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
 }
 
+.head.from-up::before {
+  width: 70%;
+  height: 70%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.head.from-down::before {
+  width: 70%;
+  height: 70%;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+}
+
+/* Tail */
+.tail.to-left::before {
+  height: 70%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.tail.to-right::before {
+  height: 70%;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.tail.to-up::before {
+  width: 70%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.tail.to-down::before {
+  width: 70%;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+}
+
+/* Middle */
+.from-left.to-right::before,
+.from-right.to-left::before {
+  height: 70%;
+}
+
+.from-down.to-up::before,
+.from-up.to-down::before {
+  width: 70%;
+}
+
+/* Curve */
 .from-left.to-down,
 .from-down.to-left {
-  background-image: url('/snake/Curve.svg');
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.from-left.to-down::before,
+.from-down.to-left::before {
+  width: 85%;
+  height: 85%;
+  border-top-right-radius: 100%;
+}
+.from-left.to-down::after,
+.from-down.to-left::after {
+  content: '';
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  border-top-right-radius: 100%;
+  background-color: hsla(183, 28%, 84%, 100%);
 }
 
 .from-left.to-up,
 .from-up.to-left {
-  transform: rotate(90deg);
-  background-image: url('/snake/Curve.svg');
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.from-left.to-up::before,
+.from-up.to-left::before {
+  width: 85%;
+  height: 85%;
+  border-bottom-right-radius: 100%;
+}
+.from-left.to-up::after,
+.from-up.to-left::after {
+  content: '';
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  border-bottom-right-radius: 100%;
+  background-color: hsla(183, 28%, 84%, 100%);
 }
 
 .from-right.to-up,
 .from-up.to-right {
-  transform: rotate(180deg);
-  background-image: url('/snake/Curve.svg');
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.from-right.to-up::before,
+.from-up.to-right::before {
+  width: 85%;
+  height: 85%;
+  border-bottom-left-radius: 100%;
+}
+.from-right.to-up::after,
+.from-up.to-right::after {
+  content: '';
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  border-bottom-left-radius: 100%;
+  background-color: hsla(183, 28%, 84%, 100%);
 }
 
 .from-right.to-down,
 .from-down.to-right {
-  transform: rotate(270deg);
-  background-image: url('/snake/Curve.svg');
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.from-right.to-down::before,
+.from-down.to-right::before {
+  width: 85%;
+  height: 85%;
+  border-top-left-radius: 100%;
+}
+.from-right.to-down::after,
+.from-down.to-right::after {
+  content: '';
+  position: absolute;
+  width: 15%;
+  height: 15%;
+  border-top-left-radius: 100%;
+  background-color: white;
 }
 </style>
