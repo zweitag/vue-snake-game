@@ -179,8 +179,15 @@ export default {
   background-color: hsl(352, 100%, 66%);
 }
 
-  content: '🍬';
 .candy::before {
+  content: '';
+  display: block;
+  width: 75%;
+  height: 75%;
+  background-image: url('/corona.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .snake {
