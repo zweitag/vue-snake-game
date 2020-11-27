@@ -208,7 +208,7 @@ export default {
   display: block;
   width: 75%;
   height: 75%;
-  background-image: url('/corona.svg');
+  background-image: url('/snake/corona.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
