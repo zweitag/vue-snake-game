@@ -83,9 +83,14 @@ export default {
     });
 
     const containerRef = ref(null);
+    const focusBoard = () => containerRef.value.focus();
     const onStart = () => {
-      containerRef.value.focus();
+      focusBoard();
       start();
+    };
+    const onRestart = () => {
+      focusBoard();
+      restart();
     };
 
     return {
@@ -96,7 +101,7 @@ export default {
       status,
       containerRef,
       onStart,
-      restart,
+      onRestart,
       borderRadius: `${Math.round(gridSize / 1.5)}px`,
       padding: `${Math.round(gridSize / 5)}px`,
       gridSize: `${gridSize}px`,
