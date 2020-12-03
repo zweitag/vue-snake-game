@@ -85,7 +85,7 @@ export default {
   background-color: #ff546a;
   border-radius: var(--base-size);
   position: absolute;
-  opacity: 0.15;
+  opacity: 0.3;
   transition: opacity 0.2s;
   -webkit-transition: opacity 0.2s;
   -ms-transition: opacity 0.2s;
@@ -95,7 +95,7 @@ export default {
 
 .digit .segment.active {
   opacity: 1;
-  /* box-shadow: 0 0 calc(10 * var(--base-size)) rgba(255, 0, 0, 0.7); */
+  box-shadow: 0 0 calc(10 * var(--base-size)) rgba(255, 0, 0, 0.7);
   transition: opacity 0s;
   -webkit-transition: opacity 0s;
   -ms-transition: opacity 0s;
