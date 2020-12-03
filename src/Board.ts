@@ -97,6 +97,10 @@ export class Board {
     this.arr[0] = 'snake to-right tail';
   }
 
+  get score() {
+    return this.snake.length * 100;
+  }
+
   willCollide({ oldHeadIndex, newHeadIndex, direction }: { oldHeadIndex: number, newHeadIndex: number, direction: Direction }): Boolean {
     if (this.snake.occupiesBoardIndex(newHeadIndex)) return true;
     if (!this.withWalls) return false;

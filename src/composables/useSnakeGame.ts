@@ -19,6 +19,7 @@ export const useSnakeGame = (
   const boardArray = ref(board.serialize());
   const updateInterval = 1000 / fps;
   const status = ref(Status.INITIALIZED);
+  const score = ref(board.score);
 
   const { direction, changeDirection } = useDirection();
 
@@ -30,6 +31,7 @@ export const useSnakeGame = (
         return;
       case Status.ATE:
       case Status.MOVED:
+        score.value = board.score;
         boardArray.value = board.serialize();
         break;
       default:
@@ -61,6 +63,7 @@ export const useSnakeGame = (
     pause,
     changeDirection: (newDirection) => tryChangeDirection(newDirection),
     status: readonly(status),
+    score: readonly(score),
     boardArray: readonly(boardArray),
   };
 };
