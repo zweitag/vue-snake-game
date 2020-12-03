@@ -23,10 +23,10 @@ To use it on another website, include the generated `dist/_assets` files (`index
 
 ## Contributors
 
-Not everyone involved in the creation of this game made commits, as we mostly developed the game in [remote live sharing sessions](https://visualstudio.microsoft.com/de/services/live-share/). Mamy thanks to:
+Not everyone involved in the creation of this game made commits, as we mostly developed the game in [remote live sharing sessions](https://visualstudio.microsoft.com/de/services/live-share/). Many thanks to:
 
-- @woolfred
-- @jjuchim
-- @00cc00
-- @oliverliebsch
-- @Timmitry
+- [Frederik Delißen](https://github.com/woolfred)
+- [Jonas Juchim](https://github.com/jjuchim)
+- [Johannes Hollekamp](https://github.com/00cc00)
+- [Oliver Liebsch](https://github.com/oliverliebsch)
+- [Tim Landwerth](https://github.com/timmitry)
