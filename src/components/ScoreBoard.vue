@@ -16,6 +16,19 @@
 </template>
 
 <script lang="ts">
+const segmentsByDigit = {
+  0: ['top', 'topRight', 'bottomRight', 'bottom', 'bottomLeft', 'topLeft'],
+  1: ['topRight', 'bottomRight'],
+  2: ['top', 'topRight', 'bottom', 'bottomLeft', 'middle'],
+  3: ['top', 'topRight', 'bottomRight', 'bottom', 'middle'],
+  4: ['topRight', 'bottomRight', 'topLeft', 'middle'],
+  5: ['top', 'bottomRight', 'bottom', 'topLeft', 'middle'],
+  6: ['top', 'bottomRight', 'bottom', 'bottomLeft', 'topLeft', 'middle'],
+  7: ['top', 'topRight', 'bottomRight'],
+  8: ['top', 'topRight', 'bottomRight', 'bottom', 'bottomLeft', 'topLeft', 'middle'],
+  9: ['top', 'topRight', 'bottomRight', 'bottom', 'topLeft', 'middle'],
+};
+
 export default {
   name: 'Score',
   props: {
@@ -29,15 +42,7 @@ export default {
       return [10000, 1000, 100, 10, 1].filter((dimension) => dimension <= this.score);
     },
     segmentPositions(): string[] {
-      return [
-        'top',
-        'topRight',
-        'bottomRight',
-        'bottom',
-        'bottomLeft',
-        'topLeft',
-        'middle',
-      ];
+      return ['top', 'topRight', 'bottomRight', 'bottom', 'bottomLeft', 'topLeft', 'middle'];
     },
   },
   methods: {
@@ -47,27 +52,8 @@ export default {
     },
     segmentClasses(position: string, dimension: number): string {
       if (this.score < dimension) return '';
-
       const digit = this.digitFromScore(dimension);
-
-      switch (position) {
-        case 'top':
-          return [0, 2, 3, 5, 6, 7, 8, 9].includes(digit) ? 'on' : '';
-        case 'topRight':
-          return [0, 1, 2, 3, 4, 7, 8, 9].includes(digit) ? 'on' : '';
-        case 'bottomRight':
-          return [0, 1, 3, 4, 5, 6, 7, 8, 9].includes(digit) ? 'on' : '';
-        case 'bottom':
-          return [0, 2, 3, 5, 6, 8, 9].includes(digit) ? 'on' : '';
-        case 'bottomLeft':
-          return [0, 2, 6, 8].includes(digit) ? 'on' : '';
-        case 'topLeft':
-          return [0, 4, 5, 6, 8, 9].includes(digit) ? 'on' : '';
-        case 'middle':
-          return [2, 3, 4, 5, 6, 8, 9].includes(digit) ? 'on' : '';
-        default:
-          return '';
-      }
+      return segmentsByDigit[digit].includes(position) ? 'on' : '';
     },
   },
 };
