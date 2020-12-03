@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="game">
     <div
       v-if="showOverlay"
       class="overlay"
@@ -21,18 +21,21 @@
         </button>
       </div>
     </div>
-    <div
-      ref="containerRef"
-      class="game-board"
-      :tabindex="-1"
-      @keydown.up.left.down.right.prevent="handleKeypress"
-    >
+    <ScoreBoard :score="score" />
+    <div class="board">
       <div
-        v-for="(item, index) in boardArray"
-        :key="index"
-        class="grid-item"
-        :class="item"
-      />
+        ref="containerRef"
+        class="board-grid"
+        :tabindex="-1"
+        @keydown.up.left.down.right.prevent="handleKeypress"
+      >
+        <div
+          v-for="(item, index) in boardArray"
+          :key="index"
+          class="grid-item"
+          :class="item"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -41,9 +44,13 @@
 import { computed, ref } from 'vue';
 import { useSnakeGame } from '../composables/useSnakeGame';
 import { Direction, Status } from '../types';
+import ScoreBoard from './ScoreBoard.vue';
 
 export default {
   name: 'Board',
+  components: {
+    ScoreBoard,
+  },
   props: {
     width: {
       type: Number,
@@ -64,7 +71,12 @@ export default {
   },
   setup(props) {
     const {
-      boardArray, changeDirection, start, restart, status,
+      boardArray,
+      changeDirection,
+      start,
+      restart,
+      status,
+      score,
     } = useSnakeGame({ ...props });
 
     const handleKeypress = ({ key }) => {
@@ -101,6 +113,7 @@ export default {
       handleKeypress,
       showOverlay,
       status,
+      score,
       containerRef,
       onStart,
       onRestart,
@@ -114,10 +127,13 @@ export default {
   box-sizing: border-box;
 }
 
-.container {
+.game {
   position: relative;
   width: 400px;
-  height: 400px;
+  height: 490px;
+
+  background-color: #008990;
+  padding: 20px;
 }
 
 .overlay {
@@ -135,7 +151,11 @@ export default {
   background-color: hsla(0, 0%, 100%, 0.8);
 }
 
-.game-board {
+.board {
+  height: 400px;
+}
+
+.board-grid {
   display: grid;
   grid-template-columns: repeat(var(--width), minmax(0, 1fr));
   grid-template-rows: repeat(var(--height), minmax(0, 1fr));
@@ -178,11 +198,12 @@ export default {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   user-select: none;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .call-to-action::after {
-  content: '›';
+  content: "›";
   display: inline-block;
   position: relative;
   width: 14px;
@@ -204,11 +225,11 @@ export default {
 }
 
 .candy::before {
-  content: '';
+  content: "";
   display: block;
   width: 75%;
   height: 75%;
-  background-image: url('/snake/corona.svg');
+  background-image: url("/snake/corona.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -221,23 +242,28 @@ export default {
 }
 
 .snake::before {
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   background-color: #008990;
-  background-image: radial-gradient(circle, hsl(160, 100%, 33%) 15%, transparent 10%), radial-gradient(circle, hsl(160, 100%, 33%) 15%, transparent 10%);
+  background-image: radial-gradient(
+      circle,
+      hsl(160, 100%, 33%) 15%,
+      transparent 10%
+    ),
+    radial-gradient(circle, hsl(160, 100%, 33%) 15%, transparent 10%);
   background-position: 0 0, 10px 10px;
   background-size: 10px 10px;
 }
 
 /* Head */
 .head::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 1;
   width: 100%;
   height: 100%;
-  background-image: url('/snake/face.svg');
+  background-image: url("/snake/face.svg");
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -345,7 +371,7 @@ export default {
 }
 .from-left.to-down::after,
 .from-down.to-left::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 15%;
   height: 15%;
@@ -366,7 +392,7 @@ export default {
 }
 .from-left.to-up::after,
 .from-up.to-left::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 15%;
   height: 15%;
@@ -387,7 +413,7 @@ export default {
 }
 .from-right.to-up::after,
 .from-up.to-right::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 15%;
   height: 15%;
@@ -408,7 +434,7 @@ export default {
 }
 .from-right.to-down::after,
 .from-down.to-right::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 15%;
   height: 15%;
