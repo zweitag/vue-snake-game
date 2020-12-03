@@ -53,7 +53,7 @@ export default {
     segmentClasses(position: string, dimension: number): string {
       if (this.score < dimension) return '';
       const digit = this.digitFromScore(dimension);
-      return segmentsByDigit[digit].includes(position) ? 'on' : '';
+      return segmentsByDigit[digit].includes(position) ? 'active' : '';
     },
   },
 };
@@ -93,7 +93,7 @@ export default {
   -o-transition: opacity 0.2s;
 }
 
-.digit .segment.on {
+.digit .segment.active {
   opacity: 1;
   /* box-shadow: 0 0 calc(10 * var(--base-size)) rgba(255, 0, 0, 0.7); */
   transition: opacity 0s;
